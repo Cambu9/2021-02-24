@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import it.polito.tdp.PremierLeague.model.Match;
 import it.polito.tdp.PremierLeague.model.Model;
+import it.polito.tdp.PremierLeague.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,12 +48,25 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
-    	
+    	txtResult.clear();
+    	Match m = cmbMatch.getValue();
+    	if(m==null) {
+    		txtResult.appendText("Devi selezionare un match!");
+    	    return;
+    	}
+    	String msg = model.creaGrafo(m);
+    	txtResult.appendText(msg);
     }
 
     @FXML
     void doGiocatoreMigliore(ActionEvent event) {    	
-    	
+    	txtResult.clear();
+    	Player best = model.calcoloGiocatoreMigliore();
+    	if(best == null) {
+    		txtResult.appendText("Errore grafo vuoto");
+    		return;
+    	}
+    	txtResult.appendText("Il giocatore migliore è: (id) " +best.getPlayerID()+ " (nome) " +best.getName()+ " con delta efficienza = " +model.getMax());
     }
     
     @FXML
@@ -73,5 +87,6 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	cmbMatch.getItems().addAll(model.getAllMatches());
     }
 }

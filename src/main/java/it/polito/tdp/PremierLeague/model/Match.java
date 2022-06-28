@@ -2,113 +2,43 @@ package it.polito.tdp.PremierLeague.model;
 
 import java.time.LocalDateTime;
 
-public class Match {
+public class Match implements Comparable<Match>{
 	Integer matchID;
-	Integer teamHomeID;
-	Integer teamAwayID;
-	Integer teamHomeFormation;
-	Integer teamAwayFormation;
-	Integer resultOfTeamHome;
-	
-	String teamHomeNAME;
-	String teamAwayNAME;
-
-	LocalDateTime date;
-	
-	public Match(Integer matchID, Integer teamHomeID, Integer teamAwayID, Integer teamHomeFormation,
-			Integer teamAwayFormation, Integer resultOfTeamHome, LocalDateTime date, String teamHomeNAME, String teamAwayNAME) {
+	String Team1;
+	String Team2;
+	public Match(Integer matchID, String team1, String team2) {
 		super();
 		this.matchID = matchID;
-		this.teamHomeID = teamHomeID;
-		this.teamAwayID = teamAwayID;
-		this.teamHomeFormation = teamHomeFormation;
-		this.teamAwayFormation = teamAwayFormation;
-		this.resultOfTeamHome = resultOfTeamHome;
-		this.teamHomeNAME = teamHomeNAME;
-		this.teamAwayNAME = teamAwayNAME;
-		this.date = date;
+		Team1 = team1;
+		Team2 = team2;
 	}
-	
 	public Integer getMatchID() {
 		return matchID;
 	}
 	public void setMatchID(Integer matchID) {
 		this.matchID = matchID;
 	}
-	public Integer getTeamHomeID() {
-		return teamHomeID;
+	public String getTeam1() {
+		return Team1;
 	}
-	public void setTeamHomeID(Integer teamHomeID) {
-		this.teamHomeID = teamHomeID;
+	public void setTeam1(String team1) {
+		Team1 = team1;
 	}
-	public Integer getTeamAwayID() {
-		return teamAwayID;
+	public String getTeam2() {
+		return Team2;
 	}
-	public void setTeamAwayID(Integer teamAwayID) {
-		this.teamAwayID = teamAwayID;
+	public void setTeam2(String team2) {
+		Team2 = team2;
 	}
-	public Integer getTeamHomeFormation() {
-		return teamHomeFormation;
-	}
-	public void setTeamHomeFormation(Integer teamHomeFormation) {
-		this.teamHomeFormation = teamHomeFormation;
-	}
-	public Integer getTeamAwayFormation() {
-		return teamAwayFormation;
-	}
-	public void setTeamAwayFormation(Integer teamAwayFormation) {
-		this.teamAwayFormation = teamAwayFormation;
-	}
-	public Integer getReaultOfTeamHome() {
-		return resultOfTeamHome;
-	}
-	public void setReaultOfTeamHome(Integer resultOfTeamHome) {
-		this.resultOfTeamHome = resultOfTeamHome;
-	}
-	public LocalDateTime getDate() {
-		return date;
-	}
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
-
-	public Integer getResultOfTeamHome() {
-		return resultOfTeamHome;
-	}
-
-	public void setResultOfTeamHome(Integer resultOfTeamHome) {
-		this.resultOfTeamHome = resultOfTeamHome;
-	}
-
-	public String getTeamHomeNAME() {
-		return teamHomeNAME;
-	}
-
-	public void setTeamHomeNAME(String teamHomeNAME) {
-		this.teamHomeNAME = teamHomeNAME;
-	}
-
-	public String getTeamAwayNAME() {
-		return teamAwayNAME;
-	}
-
-	public void setTeamAwayNAME(String teamAwayNAME) {
-		this.teamAwayNAME = teamAwayNAME;
-	}
-
-	@Override
-	public String toString() {
-		return "[" + matchID + "] " + teamHomeNAME + " vs. " + teamAwayNAME;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((Team1 == null) ? 0 : Team1.hashCode());
+		result = prime * result + ((Team2 == null) ? 0 : Team2.hashCode());
 		result = prime * result + ((matchID == null) ? 0 : matchID.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -118,12 +48,32 @@ public class Match {
 		if (getClass() != obj.getClass())
 			return false;
 		Match other = (Match) obj;
+		if (Team1 == null) {
+			if (other.Team1 != null)
+				return false;
+		} else if (!Team1.equals(other.Team1))
+			return false;
+		if (Team2 == null) {
+			if (other.Team2 != null)
+				return false;
+		} else if (!Team2.equals(other.Team2))
+			return false;
 		if (matchID == null) {
 			if (other.matchID != null)
 				return false;
 		} else if (!matchID.equals(other.matchID))
 			return false;
 		return true;
+	}
+	@Override
+	public String toString() {
+		return "[" + matchID + "] " + Team1 + " Vs. " + Team2 + "\n";
+	}
+	
+	@Override
+	public int compareTo(Match o) {
+		// TODO Auto-generated method stub
+		return this.matchID-o.matchID;
 	}
 	
 }
